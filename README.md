@@ -1,4 +1,5 @@
 # GodotTwiCIL -- Godot Twitch Chat Interaction Layer
+![GodotTwiCIL Logo](./godot-twicil-icon.png)
 ### Description
 An abstraction layer for Godot Engine to enable interaction with twitch chat.
 

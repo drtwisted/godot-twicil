@@ -20,7 +20,7 @@ var __last_command_time = 0
 var __log = false
 
 # Public methods
-func set_loggin(state):
+func set_logging(state):
 	__log = state
 
 func connect_to_host(host, port):

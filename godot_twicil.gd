@@ -1,4 +1,4 @@
-extends 'res://irc_client_ex.gd'
+extends './helpers/irc_client_ex.gd'
 
 signal raw_response_recieved(response)
 signal message_recieved(sender, text)

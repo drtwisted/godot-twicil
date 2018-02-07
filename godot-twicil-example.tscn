@@ -8,6 +8,8 @@
 [node name="ExampleGodotTwiCIL" type="Node2D"]
 
 script/script = ExtResource( 1 )
+animate = true
+animations_time = 1.0
 
 [node name="TwiCIL" type="Node" parent="."]
 
@@ -22,5 +24,12 @@ COMMAND_WAIT_TIMEOUT = 0.3
 
 transform/pos = Vector2( 499.667, 264.638 )
 texture = ExtResource( 4 )
+
+[node name="Tween" type="Tween" parent="."]
+
+playback/process_mode = 1
+playback/active = false
+playback/repeat = false
+playback/speed = 1.0
 
 

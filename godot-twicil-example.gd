@@ -1,5 +1,8 @@
 extends Node2D
 
+export(bool) var animate = true
+export(float) var animations_time = 1.0
+
 class FuncRefEx extends FuncRef:
 	func _init(instance, method):
 		.set_instance(instance)
@@ -18,11 +21,12 @@ class InteractiveCommand:
 
 onready var twicil = get_node("TwiCIL")
 onready var sprite = get_node("Sprite")
+onready var tween = get_node("Tween")
 
-const NICK = "TwistyBot"
-const CLIENT_ID = "vbqsda2v8nryieli4m3r5eh2c125ei"
-const CHANNEL = "dr_twisted"	# Your channel name IN LOWER CASE
-const OAUTH = "oauth:8ycqc3x2jb185d1dlw5r8py0wmfhkl"
+const NICK = "YOUR_NICK"
+const CLIENT_ID = "YOUR_CLIENT_ID"
+const CHANNEL = "your_channel"	# Your channel name IN LOWER CASE
+const OAUTH = "oauth:YOUR_OAUTH"
 
 var interactive_commands = {
 	'move': InteractiveCommand.new(
@@ -34,20 +38,51 @@ var interactive_commands = {
 }
 
 # Private methods
+func __interpolate_method(obj, method, start_value, end_value, time):
+	tween.stop_all()
+	tween.interpolate_method(
+		obj, method,
+		start_value, end_value, time,
+		Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
+	tween.start()
+
+
 func _command_move_to(params):
 	var x = float(params[0])
 	var y = float(params[1])
 
-	sprite.set_global_pos(Vector2(x, y))
+	if not animate:
+		sprite.set_global_pos(Vector2(x, y))
+		return
 
-func _command_rotate(degress):
-	sprite.set_rotd(float(degress[0]))
+	__interpolate_method(
+		sprite, 'set_global_pos',
+		sprite.get_global_pos(), Vector2(x, y), animations_time)
+
+
+func _command_rotate(degrees):
+
+	if not animate:
+		sprite.set_rotd(float(degrees[0]))
+		return
+
+	__interpolate_method(
+		sprite, 'set_rotd',
+		sprite.get_rotd(), float(degrees[0]), animations_time)
+
 
 func _command_scale(params):
 	var scale_x = float(params[0])
 	var scale_y = float(params[1])
 
-	sprite.set_scale(Vector2(scale_x, scale_y))
+	if not animate:
+		sprite.set_scale(Vector2(scale_x, scale_y))
+		return
+
+	__interpolate_method(
+		sprite, 'set_scale',
+		sprite.get_scale(), Vector2(scale_x, scale_y), animations_time)
+
 
 # Public methods
 func connect():

@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=1]
-
-[ext_resource path="res://irc_client_ex.gd" type="Script" id=1]
-
-[node name="TwitchIrcClient" type="Node"]
-
-script/script = ExtResource( 1 )
-
-

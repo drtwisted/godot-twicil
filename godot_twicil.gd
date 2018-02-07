@@ -12,9 +12,9 @@ const CONNECT_WAIT_TIMEOUT = 1
 const COMMAND_WAIT_TIMEOUT = 1.5
 
 const MessageWrapper = preload('./helpers/message_wrapper.gd')
-const TwitchIrcServerMessage = preload('twitch_irc_server_message.gd')
+const TwitchIrcServerMessage = preload('./helpers/twitch_irc_server_message.gd')
 
-onready var tools = preload('tools.gd').new()
+onready var tools = preload('./helpers/tools.gd').new()
 
 var commands = {
 	Commands.PING: 'PING',

@@ -1,4 +1,3 @@
-
 var message_prefix
 var prefix
 var command

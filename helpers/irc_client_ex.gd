@@ -2,8 +2,8 @@ extends Node
 
 signal response_recieved(response)
 
-const CONNECT_WAIT_TIMEOUT = 1
-const COMMAND_WAIT_TIMEOUT = 0.3
+export(float) var CONNECT_WAIT_TIMEOUT = 1
+export(float) var COMMAND_WAIT_TIMEOUT = 0.3
 
 onready var __stream_peer = StreamPeerTCP.new()
 onready var queue = preload('queue.gd').new()
@@ -17,7 +17,12 @@ var _port
 var __time_passed = 0
 var __last_command_time = 0
 
+var __log = false
+
 # Public methods
+func set_loggin(state):
+	__log = state
+
 func connect_to_host(host, port):
 	_host = host
 	_port = port
@@ -34,7 +39,9 @@ func abort_processing():
 
 # Private methods
 func _log(text):
-	prints('[%s] %s' % [__get_time_str(), text])
+	if __log:
+		prints('[%s] %s' % [__get_time_str(), text])
+
 func __get_time_str():
 	var time = OS.get_time()
 	return str(time.hour, ':', time.minute, ':', time.second)
@@ -44,7 +51,7 @@ func __send_command(command):
 	var chuncks_count = command.length() / chunck_size
 	var appendix_length = command.length() % chunck_size
 
-	_log('>> %s' % command)
+	_log('<< %s' % command)
 
 	for i in range(chuncks_count):
 		__stream_peer.put_data((command.substr(i * chunck_size, chunck_size)).to_utf8())
@@ -77,7 +84,7 @@ func __process_input():
 
 	var data = __stream_peer.get_utf8_string(bytes_available)
 
-	_log('<< %s' % data)
+	_log('>> %s' % data)
 
 	emit_signal('response_recieved', data)
 

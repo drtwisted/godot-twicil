@@ -25,20 +25,19 @@ var commands = {
 func connect_to_twitch_chat():
 	.connect_to_host(TWITCH_IRC_CHAT_HOST, TWITCH_IRC_CHAT_PORT)
 
-func connect_to_channel(channel, client_id, password, nickname, host=TWITCH_IRC_CHAT_HOST, realname=''):
-	connect_to(
+func connect_to_channel(channel, client_id, password, nickname, realname=''):
+	_connect_to(
 		channel, nickname, nickname if realname == '' else realname,
 		password, client_id, host)
 
-func connect_to(channel, nickname, realname, password, client_id, host):
+func _connect_to(channel, nickname, realname, password, client_id):
 	.send_command('PASS %s' % password)
 
 	.send_command('NICK ' +  nickname)
 
-	.send_command(str('USER ', client_id, ' ', host, ' bla:', realname))
+	.send_command(str('USER ', client_id, ' ', _host, ' bla:', realname))
 	.send_command('JOIN #' + channel)
 
-	# TODO: Move to a child class
 	.send_command("CAP REQ :twitch.tv/tags twitch.tv/commands twitch.tv/membership")
 
 # Private methods

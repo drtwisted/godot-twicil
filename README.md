@@ -12,8 +12,12 @@ Simply copy godot-twicil into your project directory. And add godot-twicil node 
 #### Methods
 |Method|Params|Description|
 |-|-|-|
-|**connect_to_twitch_chat**| -- | Establishes connectoin with Twitch IRC Chat Server|
+|**connect_to_twitch_chat**| -- | Establishes connection to Twitch IRC Chat Server|
 |**connect_to_channel**|**channel** -- channel name to connect to; **client_id** -- your *client_id* obtained from Twitch Developer Dashboard; **password** -- your *oauth code* obtained from Twitch Developer Dashboard; **nickname** -- nickname of account your app will be authorized in chat; **realname** (optional) -- not quite sure if it's necessary, but can be the same as *nickname*;  | Joins specified chat using provided credentials|
+|**set_logging**|**state** -- boolean state| Enable/disable logging communication with server to stdout|
+|**connect_to_host**|**host** -- host IP or FDQN; **port** -- host port| Establishes connection to specified host:port|
+|**send_command**|**command** -- raw text which is send| Sends specified command/text directly to the server|
+
 
 #### Signals
 |Signal|Params|Description|

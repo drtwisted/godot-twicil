@@ -96,6 +96,6 @@ func _on_response_recieved(response):
 			.send_command(str('PONG ', single_response.params[0]))
 		elif single_response.command == commands[Commands.PRIVMSG]:
 			var chat_message = MessageWrapper.wrap(single_response)
-			prints(chat_message.name, '::', chat_message.text)
+			# prints(chat_message.name, '::', chat_message.text)
 
 			emit_signal("message_recieved", chat_message.name, chat_message.text)

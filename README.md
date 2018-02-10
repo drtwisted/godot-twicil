@@ -5,7 +5,7 @@ An abstraction layer for Godot Engine to enable interaction with twitch chat.
 
 
 ### How to use
-Simply copy godot-twicil into your project directory. And add godot-twicil node into the scene tree. For more details, please, check the godot-twicil-example.tscn/.gd.
+TODO: Super-simple code snippet
 
 ### API
 

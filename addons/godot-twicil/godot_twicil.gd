@@ -21,6 +21,8 @@ var commands = {
 	Commands.PRIVMSG: 'PRIVMSG'
 }
 
+var curr_channel = ""
+
 # Public methods
 func connect_to_twitch_chat():
 	.connect_to_host(TWITCH_IRC_CHAT_HOST, TWITCH_IRC_CHAT_PORT)
@@ -39,6 +41,14 @@ func _connect_to(channel, nickname, realname, password, client_id):
 	.send_command('JOIN #' + channel)
 
 	.send_command("CAP REQ :twitch.tv/tags twitch.tv/commands twitch.tv/membership")
+
+    curr_channel = channel
+
+func send_message(text):
+	.send_command(str('PRIVMSG #', curr_channel, ' :', text))
+
+func send_whisper(recepient, text):
+	send_message(str('/w ', recepient, ' ', text))
 
 # Private methods
 func __connect_signals():

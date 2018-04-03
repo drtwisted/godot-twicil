@@ -1,33 +1,34 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://godot-twicil-example.gd" type="Script" id=1]
 [ext_resource path="res://addons/godot-twicil/godot_twicil.gd" type="Script" id=2]
 [ext_resource path="res://addons/godot-twicil/sprites/twicil-icon.png" type="Texture" id=3]
 [ext_resource path="res://icon.png" type="Texture" id=4]
 
-[node name="ExampleGodotTwiCIL" type="Node2D"]
+[node name="ExampleGodotTwiCIL" type="Node2D" index="0"]
 
-script/script = ExtResource( 1 )
+script = ExtResource( 1 )
 animate = true
 animations_time = 1.0
 
-[node name="TwiCIL" type="Node" parent="."]
+[node name="TwiCIL" type="Node" parent="." index="0"]
 
-script/script = ExtResource( 2 )
+script = ExtResource( 2 )
 __meta__ = {
 "_editor_icon": ExtResource( 3 )
 }
 CONNECT_WAIT_TIMEOUT = 1
 COMMAND_WAIT_TIMEOUT = 0.3
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="Sprite" type="Sprite" parent="." index="1"]
 
-transform/pos = Vector2( 499.667, 264.638 )
 texture = ExtResource( 4 )
 
-[node name="Tween" type="Tween" parent="."]
+[node name="Tween" type="Tween" parent="." index="2"]
 
-playback/process_mode = 1
+repeat = false
+playback_process_mode = 1
+playback_speed = 1.0
 playback/active = false
 playback/repeat = false
 playback/speed = 1.0

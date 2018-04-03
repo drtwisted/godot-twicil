@@ -4,6 +4,9 @@ var __queue = []
 var busy = false
 
 func append(element):
+	if busy:
+		return
+
 	busy = true
 
 	__queue.append(element)
@@ -11,6 +14,9 @@ func append(element):
 	busy = false
 
 func pop_next():
+	if busy:
+		return
+
 	busy = true
 
 	var element = __queue[0]

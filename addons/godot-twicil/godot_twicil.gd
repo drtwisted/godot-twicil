@@ -3,7 +3,7 @@ extends './helpers/irc_client_ex.gd'
 signal raw_response_recieved(response)
 signal message_recieved(sender, text)
 
-enum Commands {PING, PRIVMSG}
+enum IRCCommands {PING, PRIVMSG}
 
 const TWITCH_IRC_CHAT_HOST = 'irc.chat.twitch.tv'
 const TWITCH_IRC_CHAT_PORT = 6667
@@ -15,10 +15,11 @@ const MessageWrapper = preload('./helpers/message_wrapper.gd')
 const TwitchIrcServerMessage = preload('./helpers/twitch_irc_server_message.gd')
 
 onready var tools = preload('./helpers/tools.gd').new()
+onready var commands = preload('./helpers/interactive_commands.gd').new()
 
-var commands = {
-	Commands.PING: 'PING',
-	Commands.PRIVMSG: 'PRIVMSG'
+var irc_commands = {
+	IRCCommands.PING: 'PING',
+	IRCCommands.PRIVMSG: 'PRIVMSG'
 }
 
 var curr_channel = ""
@@ -42,7 +43,7 @@ func _connect_to(channel, nickname, realname, password, client_id):
 
 	.send_command("CAP REQ :twitch.tv/tags twitch.tv/commands twitch.tv/membership")
 
-    curr_channel = channel
+	curr_channel = channel
 
 func send_message(text):
 	.send_command(str('PRIVMSG #', curr_channel, ' :', text))
@@ -52,6 +53,7 @@ func send_whisper(recepient, text):
 
 # Private methods
 func __connect_signals():
+	connect("message_recieved", commands, "_on_message_recieved")
 	connect("response_recieved", self, "_on_response_recieved")
 
 func __parse(string):
@@ -102,9 +104,9 @@ func _on_response_recieved(response):
 	for single_response in response.split('\n', false):
 		single_response = __parse(single_response.strip_edges(false))
 
-		if single_response.command == commands[Commands.PING]:
+		if single_response.command == irc_commands[IRCCommands.PING]:
 			.send_command(str('PONG ', single_response.params[0]))
-		elif single_response.command == commands[Commands.PRIVMSG]:
+		elif single_response.command == irc_commands[IRCCommands.PRIVMSG]:
 			var chat_message = MessageWrapper.wrap(single_response)
 			# prints(chat_message.name, '::', chat_message.text)
 

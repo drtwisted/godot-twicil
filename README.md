@@ -84,4 +84,5 @@ func _ready():
 |***commands.*** **remove**|**chat_command** -- command text reaction is set to| Remove command from list of reactions |
 
 ### TODO:
+* Add aliases for chat commands
 * Manage user states (connected/disconnected/banned users?)

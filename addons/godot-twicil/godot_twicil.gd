@@ -1,9 +1,11 @@
 extends './helpers/irc_client_ex.gd'
 
 signal raw_response_recieved(response)
+signal user_appeared(user)
+signal user_disappeared(user)
 signal message_recieved(sender, text)
 
-enum IRCCommands {PING, PRIVMSG}
+enum IRCCommands {PING, PRIVMSG, JOIN, PART, NAMES}
 
 const TWITCH_IRC_CHAT_HOST = 'irc.chat.twitch.tv'
 const TWITCH_IRC_CHAT_PORT = 6667
@@ -16,10 +18,14 @@ const TwitchIrcServerMessage = preload('./helpers/twitch_irc_server_message.gd')
 
 onready var tools = preload('./helpers/tools.gd').new()
 onready var commands = preload('./helpers/interactive_commands.gd').new()
+onready var chat_list = preload('./helpers/chat_list.gd').new()
 
 var irc_commands = {
 	IRCCommands.PING: 'PING',
-	IRCCommands.PRIVMSG: 'PRIVMSG'
+	IRCCommands.PRIVMSG: 'PRIVMSG',
+	IRCCommands.JOIN: 'JOIN',
+	IRCCommands.PART: 'PART',
+	IRCCommands.NAMES: '/NAMES'
 }
 
 var curr_channel = ""
@@ -103,11 +109,24 @@ func _on_response_recieved(response):
 
 	for single_response in response.split('\n', false):
 		single_response = __parse(single_response.strip_edges(false))
-
+		
+		# Ping-Pong with server to let it know we're alive
 		if single_response.command == irc_commands[IRCCommands.PING]:
 			.send_command(str('PONG ', single_response.params[0]))
+		
+		# Message received
 		elif single_response.command == irc_commands[IRCCommands.PRIVMSG]:
 			var chat_message = MessageWrapper.wrap(single_response)
-			# prints(chat_message.name, '::', chat_message.text)
-
 			emit_signal("message_recieved", chat_message.name, chat_message.text)
+		
+		elif single_response.command == irc_commands[IRCCommands.JOIN]:
+			var user_name = MessageWrapper.get_sender_name(single_response)
+			chat_list.add_user(user_name)
+			._log(str(user_name, " has joined chat"))
+			emit_signal("user_appeared", user_name)
+			
+		elif single_response.command == irc_commands[IRCCommands.PART]:
+			var user_name = MessageWrapper.get_sender_name(single_response)
+			chat_list.remove_user(user_name)
+			._log(str(user_name, " has left chat"))
+			emit_signal("user_disappeared", user_name)

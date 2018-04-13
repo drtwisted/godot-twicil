@@ -1,11 +1,9 @@
-[gd_scene load_steps=2 format=1]
+[gd_scene load_steps=1 format=2]
 
 [ext_resource path="res://godot_twicil.gd" type="Script" id=1]
 
 [node name="GodotTwiCIL" type="Node"]
 
-script/script = ExtResource( 1 )
+script = ExtResource( 1 )
 CONNECT_WAIT_TIMEOUT = 1
 COMMAND_WAIT_TIMEOUT = 0.3
-
-

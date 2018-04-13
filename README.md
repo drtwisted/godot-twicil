@@ -34,7 +34,7 @@ func _setup_twicil():
   twicil.commands.add("hi", self, "_command_say_hi", 0)
   twicil.commands.add("bye", self, "_command_say_bye_to", 1)
   twicil.commands.add("!w", self, "_command_whisper", 0)
-  
+
   # Add some aliases
   twicil.commands.add_aliases("hi", ["hello", "hi,", "hello,", "bye"])
   
@@ -96,3 +96,4 @@ func _ready():
 ### TODO:
 * ~~Add aliases for chat commands~~
 * Manage user states (~~connected~~/~~disconnected~~/banned users?)
+

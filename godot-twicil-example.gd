@@ -5,7 +5,10 @@ export(float) var animations_time = 1.0
 
 onready var twicil = get_node("TwiCIL")
 onready var sprite = get_node("Sprite")
+onready var users_list_label = get_node("lbUsersList")
 onready var tween = get_node("Tween")
+
+onready var credentials = preload("./twitch_credentials.gd").new()
 
 const NICK = "BOT_NICK"
 const CLIENT_ID = "YOUR_CLIENT_ID"
@@ -13,6 +16,10 @@ const CHANNEL = "YOUR_CHANNEL"	# Your channel name LOWER CASE
 const OAUTH = "BOT_OAUTH"
 
 # Private methods
+func __connect_signals():
+	twicil.connect("user_appeared", self, "_on_user_appeared")
+	twicil.connect("user_disappeared", self, "_on_user_disappeared")
+
 func __interpolate_method(obj, method, start_value, end_value, time):
 	tween.stop_all()
 	tween.interpolate_method(
@@ -55,11 +62,16 @@ func _command_scale(params):
 		sprite, 'set_scale',
 		sprite.get_scale(), Vector2(scale_x, scale_y), animations_time)
 
+func _command_reply(params):
+	var sender = params[0]
+	
+	twicil.send_message("Hello, " + str(sender))
 
 # Public methods
 func connect():
 	twicil.connect_to_twitch_chat()
 	twicil.connect_to_channel(CHANNEL, CLIENT_ID, OAUTH, NICK)
+
 
 func send_greating_help():
 	twicil.send_message(
@@ -71,11 +83,27 @@ func init_interactive_commands():
 	twicil.commands.add("move", self, "_command_move_to", 2)
 	twicil.commands.add("rotate", self, "_command_rotate")
 	twicil.commands.add("scale", self, "_command_scale", 2, true)
+	
+	twicil.commands.add("hi", self, "_command_reply", 0, true)
+	twicil.commands.add_aliases("hi", ["hello", "hi,", "hello,"])
 
 # Hooks
 func _ready():
+	__connect_signals()
 	init_interactive_commands()
 	twicil.set_logging(true)
 	connect()
 	send_greating_help()
 
+# Events
+func _on_user_appeared(name):
+	users_list_label.text += str("\n ", name)
+
+func _on_user_disappeared(name):
+	var users_list_text = users_list_label.text
+	
+	users_list_text.erase(
+		users_list_text.find(str("\n ", name)),
+		name.length() + 2)
+	
+	users_list_label.text = users_list_text

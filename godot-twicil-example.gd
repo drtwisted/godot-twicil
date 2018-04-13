@@ -8,7 +8,6 @@ onready var sprite = get_node("Sprite")
 onready var users_list_label = get_node("lbUsersList")
 onready var tween = get_node("Tween")
 
-onready var credentials = preload("./twitch_credentials.gd").new()
 
 const NICK = "BOT_NICK"
 const CLIENT_ID = "YOUR_CLIENT_ID"

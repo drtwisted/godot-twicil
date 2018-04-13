@@ -34,6 +34,12 @@ func _setup_twicil():
   twicil.commands.add("hi", self, "_command_say_hi", 0)
   twicil.commands.add("bye", self, "_command_say_bye_to", 1)
   twicil.commands.add("!w", self, "_command_whisper", 0)
+  
+  # Add some aliases
+  twicil.commands.add_aliases("hi", ["hello", "hi,", "hello,", "bye"])
+  
+  # Remove command/alias
+  twicil.commands.remove("bye")
 
 func _command_say_hi(params):
   var sender = params[0]
@@ -73,16 +79,20 @@ func _ready():
 #### Signals
 |Signal|Params|Description|
 |-|-|-|
-|**message_recieved**|**sender** -- sender nickname; **text** -- message text.| Emitted on new messages send to chat|
+|**message_recieved**|**sender** -- sender nickname; **text** -- message text| Emitted on new messages send to chat|
 |**raw_response_recieved**|**response** -- raw response from Twitch IRC server| Emitted on any response from Twitch IRC server recieved|
+|**user_appeared**|**user** -- user nickname|Emitted on user join notification received from server. NOTE: this has a server delay of several minutes|
+|**user_disappeared**|**user** -- user nickname|Emitted on user part notification received from server. NOTE: this has a server delay of several minutes|
+
 
 #### Manage interactive commands
 
 |Method|Params|Description|
 |-|-|-|
 |***commands.*** **add**|**chat_command** -- command text to react to; **target** -- target object on which method_name will be invoked; **method_name** -- method name to be invoked on the target object; **params_count**=1 -- parameters the command expects to be accepted as valid (optional param, default is 1); **variable_params_count**=false -- indicates if command can be called with any params count including none (optional param, default is false -- params count is mandatory). **NOTE:** Params are sent to callback as a list. First list member is ALWAYS sender nickname. See example ***godot-twicil-example.gd***)| Add command text **chat_command** to trigger **method_name** on **target** object and count command valid if **params_count** ammount of params is specified, or call it in any case if **variable_params_count** is set to *true*|
-|***commands.*** **remove**|**chat_command** -- command text reaction is set to| Remove command from list of reactions |
+|***commands.*** **add_aliases**|**chat_command** -- command text alias(es) is/are set to; **aliases** --  a list of aliases to add to reaction of chat_command | Add aliases to chat_command to list of reactions. |
+|***commands.*** **remove**|**chat_command** -- command (or alias) text reaction is set to| Remove command (or alias) from list of reactions |
 
 ### TODO:
-* Add aliases for chat commands
-* Manage user states (connected/disconnected/banned users?)
+* ~~Add aliases for chat commands~~
+* Manage user states (~~connected~~/~~disconnected~~/banned users?)

@@ -27,7 +27,7 @@ func connect_to_host(host, port):
 	_host = host
 	_port = port
 
-	__stream_peer.connect_to_host(_host, _port)
+	__stream_peer.connect(_host, _port)
 
 func send_command(command):
 	queue.append(command)
@@ -77,7 +77,7 @@ func __process_commands():
 func __process_input():
 	var bytes_available = __stream_peer.get_available_bytes()
 
-	if not (__stream_peer.is_connected_to_host() and bytes_available > 0):
+	if not (__stream_peer.is_connected() and bytes_available > 0):
 		return
 
 	var data = __stream_peer.get_utf8_string(bytes_available)

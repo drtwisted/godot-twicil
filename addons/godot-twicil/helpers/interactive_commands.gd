@@ -24,8 +24,14 @@ func add(
 	interactive_commands[chat_command] = InteractiveCommand.new(
 		FuncRefEx.new(target, method_name), params_count, variable_params_count)
 
+func add_aliases(chat_command, new_aliases):
+	if interactive_commands.has(chat_command):
+		for new_alias in new_aliases:
+			interactive_commands[new_alias] = interactive_commands[chat_command]
+
 func remove(chat_command):
 	if interactive_commands.has(chat_command):
+		interactive_commands[chat_command]
 		interactive_commands.erase(chat_command)
 
 # Events

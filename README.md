@@ -97,4 +97,5 @@ func _ready():
 * ~~Add aliases for chat commands~~
 * Manage user states (~~connected~~/~~disconnected~~/banned users?)
 * Investigate if it's possible to actively ask server for user list (at least add udpate of users list on new message)
+* Implement retrieval of emote images
 

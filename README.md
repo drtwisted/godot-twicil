@@ -10,6 +10,12 @@ A basic explanation is available in this video (1.5x speed is recomended :D)
 
 [![GodotTwiCIL Brief Tutorial](https://i.ytimg.com/vi/tYYCjMOxKEI/hqdefault.jpg)](https://youtu.be/tYYCjMOxKEI)
 
+### TODO:
+* ~~Add aliases for chat commands~~
+* Manage user states (~~connected~~/~~disconnected~~/banned users?)
+* Investigate if it's possible to actively ask server for user list (at least add udpate of users list on new message)
+* Implement retrieval of emote images
+
 ### How to use
 1. Create you Twitch API application [here](https://dev.twitch.tv/dashboard/apps/create)
 2. Generate a new OAUTH-Token [here](https://twitchapps.com/tmi/)
@@ -92,10 +98,4 @@ func _ready():
 |***commands.*** **add**|**chat_command** -- command text to react to; **target** -- target object on which method_name will be invoked; **method_name** -- method name to be invoked on the target object; **params_count**=1 -- parameters the command expects to be accepted as valid (optional param, default is 1); **variable_params_count**=false -- indicates if command can be called with any params count including none (optional param, default is false -- params count is mandatory). **NOTE:** Params are sent to callback as a list. First list member is ALWAYS sender nickname. See example ***godot-twicil-example.gd***)| Add command text **chat_command** to trigger **method_name** on **target** object and count command valid if **params_count** ammount of params is specified, or call it in any case if **variable_params_count** is set to *true*|
 |***commands.*** **add_aliases**|**chat_command** -- command text alias(es) is/are set to; **aliases** --  a list of aliases to add to reaction of chat_command | Add aliases to chat_command to list of reactions. |
 |***commands.*** **remove**|**chat_command** -- command (or alias) text reaction is set to| Remove command (or alias) from list of reactions |
-
-### TODO:
-* ~~Add aliases for chat commands~~
-* Manage user states (~~connected~~/~~disconnected~~/banned users?)
-* Investigate if it's possible to actively ask server for user list (at least add udpate of users list on new message)
-* Implement retrieval of emote images
 

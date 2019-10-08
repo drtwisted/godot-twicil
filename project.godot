@@ -6,10 +6,130 @@
 ;   [section] ; section goes between []
 ;   param=value ; assign values to parameters
 
-config_version=3
+config_version=4
+
+_global_script_classes=[ {
+"base": "Node",
+"class": "BaseEmotesCache",
+"language": "GDScript",
+"path": "res://addons/godot-twicil/helpers/cache/base_emotes_cache.gd"
+}, {
+"base": "BaseEmotesCache",
+"class": "BttvEmotesCache",
+"language": "GDScript",
+"path": "res://addons/godot-twicil/helpers/cache/bttv_emotes_cache.gd"
+}, {
+"base": "Reference",
+"class": "ChatList",
+"language": "GDScript",
+"path": "res://addons/godot-twicil/helpers/chat_list.gd"
+}, {
+"base": "Reference",
+"class": "ChatUser",
+"language": "GDScript",
+"path": "res://addons/godot-twicil/helpers/chat_user.gd"
+}, {
+"base": "BaseEmotesCache",
+"class": "FfzEmotesCache",
+"language": "GDScript",
+"path": "res://addons/godot-twicil/helpers/cache/ffz_emotes_cache.gd"
+}, {
+"base": "Reference",
+"class": "HelperTools",
+"language": "GDScript",
+"path": "res://addons/godot-twicil/helpers/tools.gd"
+}, {
+"base": "Object",
+"class": "HttpHeaders",
+"language": "GDScript",
+"path": "res://addons/godot-twicil/helpers/http/http_headers.gd"
+}, {
+"base": "Node",
+"class": "HttpRequestQueue",
+"language": "GDScript",
+"path": "res://addons/godot-twicil/helpers/http/http_request_queue.gd"
+}, {
+"base": "Reference",
+"class": "InteractiveCommands",
+"language": "GDScript",
+"path": "res://addons/godot-twicil/helpers/interactive_commands.gd"
+}, {
+"base": "Reference",
+"class": "IrcChatMessage",
+"language": "GDScript",
+"path": "res://addons/godot-twicil/helpers/irc_chat_message.gd"
+}, {
+"base": "Node",
+"class": "IrcClientEx",
+"language": "GDScript",
+"path": "res://addons/godot-twicil/helpers/irc_client_ex.gd"
+}, {
+"base": "Node",
+"class": "IrcClientSecure",
+"language": "GDScript",
+"path": "res://addons/godot-twicil/helpers/irc_client_scure.gd"
+}, {
+"base": "Reference",
+"class": "MessageWrapper",
+"language": "GDScript",
+"path": "res://addons/godot-twicil/helpers/message_wrapper.gd"
+}, {
+"base": "Object",
+"class": "Queue",
+"language": "GDScript",
+"path": "res://addons/godot-twicil/helpers/queue.gd"
+}, {
+"base": "IrcClientSecure",
+"class": "TwiCIL",
+"language": "GDScript",
+"path": "res://addons/godot-twicil/godot_twicil.gd"
+}, {
+"base": "Object",
+"class": "TwitchApiWrapper",
+"language": "GDScript",
+"path": "res://addons/godot-twicil/helpers/api/twitch_api_wrapper.gd"
+}, {
+"base": "BaseEmotesCache",
+"class": "TwitchEmotesCache",
+"language": "GDScript",
+"path": "res://addons/godot-twicil/helpers/cache/twitch_emotes_cache.gd"
+}, {
+"base": "Reference",
+"class": "TwitchIrcServerMessage",
+"language": "GDScript",
+"path": "res://addons/godot-twicil/helpers/twitch_irc_server_message.gd"
+}, {
+"base": "Reference",
+"class": "TwitchMessage",
+"language": "GDScript",
+"path": "res://addons/godot-twicil/helpers/twitch_message_wrapper.gd"
+} ]
+_global_script_class_icons={
+"BaseEmotesCache": "",
+"BttvEmotesCache": "",
+"ChatList": "",
+"ChatUser": "",
+"FfzEmotesCache": "",
+"HelperTools": "",
+"HttpHeaders": "",
+"HttpRequestQueue": "",
+"InteractiveCommands": "",
+"IrcChatMessage": "",
+"IrcClientEx": "",
+"IrcClientSecure": "",
+"MessageWrapper": "",
+"Queue": "",
+"TwiCIL": "",
+"TwitchApiWrapper": "",
+"TwitchEmotesCache": "",
+"TwitchIrcServerMessage": "",
+"TwitchMessage": ""
+}
 
 [application]
 
+config/name="Godot TwiCIL Demo"
+run/main_scene="res://godot-twicil-example.tscn"
 icon="res://icon.png"
 main_scene="res://godot-twicil-example.tscn"
 name="Godot TwiCIL Demo"

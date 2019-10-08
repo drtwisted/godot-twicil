@@ -1,29 +1,32 @@
-const ChatUser = preload("./chat_user.gd")
+class_name ChatList
 
-var __list = {}
 
-func add_user(name):
-	if name in __list:
-		return
-		
-	__list[name] = ChatUser.new(name)
+var __list := Dictionary()
 
-func remove_user(name):
-	if name in __list:
-		__list.erase(name)
+func add_user(name: String) -> void:
+    if name in __list:
+        return
 
-func get_user_details(name):
-	if name in __list:
-		return __list[name]
+    __list[name] = ChatUser.new(name)
 
-func get_names():
-	return __list.keys()
+func remove_user(name: String) -> void:
+    if name in __list:
+        __list.erase(name)
 
-func size():
-	return __list.size()
+func get_user_details(name: String) -> ChatUser:
+    if name in __list:
+        return __list[name] as ChatUser
 
-func clear():
-	__list = {}
+    return null
 
-func has(name):
-	return name in __list
+func get_names() -> Array:
+    return __list.keys()
+
+func size() -> int:
+    return __list.size()
+
+func clear() -> void:
+    __list.clear()
+
+func has(name: String) -> bool:
+    return name in __list

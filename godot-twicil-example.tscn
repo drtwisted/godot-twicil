@@ -5,75 +5,31 @@
 [ext_resource path="res://addons/godot-twicil/sprites/twicil-icon.png" type="Texture" id=3]
 [ext_resource path="res://icon.png" type="Texture" id=4]
 
-[node name="ExampleGodotTwiCIL" type="Node2D" index="0"]
-
+[node name="ExampleGodotTwiCIL" type="Node2D"]
 script = ExtResource( 1 )
-animate = true
-animations_time = 1.0
 
-[node name="TwiCIL" type="Node" parent="." index="0"]
-
+[node name="TwiCIL" type="Node" parent="."]
 script = ExtResource( 2 )
 __meta__ = {
 "_editor_icon": ExtResource( 3 )
 }
-CONNECT_WAIT_TIMEOUT = 1
-COMMAND_WAIT_TIMEOUT = 0.3
 
-[node name="lbUsersList" type="Label" parent="." index="1"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
+[node name="lbUsersList" type="Label" parent="."]
 margin_left = 740.0
 margin_right = 1025.0
 margin_bottom = 597.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
 text = "CHAT USERS:
 "
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
 
-[node name="Sprite" type="Sprite" parent="." index="2"]
-
+[node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 535.106, 283.38 )
 texture = ExtResource( 4 )
 
-[node name="Tween" type="Tween" parent="." index="3"]
+[node name="Tween" type="Tween" parent="."]
 
-repeat = false
-playback_process_mode = 1
-playback_speed = 1.0
-playback/active = false
-playback/repeat = false
-playback/speed = 1.0
-
-[node name="lbInfo" type="Label" parent="." index="4"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
+[node name="lbInfo" type="Label" parent="."]
 margin_left = 386.0
 margin_top = 178.0
 margin_right = 700.0
 margin_bottom = 192.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
 text = "Use instructions in chat to control this cutie! ^_^"
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
-

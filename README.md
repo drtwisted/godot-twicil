@@ -11,11 +11,11 @@ A basic explanation is available in this video (1.5x speed is recomended :D)
 [![GodotTwiCIL Brief Tutorial](https://i.ytimg.com/vi/tYYCjMOxKEI/hqdefault.jpg)](https://youtu.be/tYYCjMOxKEI)
 
 ### TODO:
-* Implement secure connection over WS for 3.1.x (should have built in tools for the purpose)
+* ~~Implement secure connection over WS for 3.1.x (should have built in tools for the purpose)~~
 * ~~Add aliases for chat commands~~
 * Manage user states (~~connected~~/~~disconnected~~/banned users?)
 * Investigate if it's possible to actively ask server for user list (at least add update of users list on new message)
-* Implement retrieval of emote images
+* ~~Implement retrieval of emote images~~(investigate what can be done to support GIF emotes)
 
 ### How to use
 1. Create your Twitch API application [here](https://dev.twitch.tv/dashboard/apps/create)

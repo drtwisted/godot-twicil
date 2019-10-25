@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=5 format=1]
 
 [ext_resource path="res://godot-twicil-example.gd" type="Script" id=1]
 [ext_resource path="res://addons/godot-twicil/godot_twicil.gd" type="Script" id=2]
@@ -23,13 +23,16 @@ text = "CHAT USERS:
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 535.106, 283.38 )
+
 texture = ExtResource( 4 )
 
 [node name="Tween" type="Tween" parent="."]
+
 
 [node name="lbInfo" type="Label" parent="."]
 margin_left = 386.0
 margin_top = 178.0
 margin_right = 700.0
 margin_bottom = 192.0
+
 text = "Use instructions in chat to control this cutie! ^_^"

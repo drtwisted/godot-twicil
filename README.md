@@ -10,6 +10,13 @@ A basic explanation is available in this video (1.5x speed is recomended :D)
 
 [![GodotTwiCIL Brief Tutorial](https://i.ytimg.com/vi/tYYCjMOxKEI/hqdefault.jpg)](https://youtu.be/tYYCjMOxKEI)
 
+### TODO:
+* Implement secure connection over WS for 3.1.x (should have built in tools for the purpose)
+* ~~Add aliases for chat commands~~
+* Manage user states (~~connected~~/~~disconnected~~/banned users?)
+* Investigate if it's possible to actively ask server for user list (at least add update of users list on new message)
+* Implement retrieval of emote images
+
 ### How to use
 1. Create your Twitch API application [here](https://dev.twitch.tv/dashboard/apps/create)
 2. Generate a new OAUTH-Token [here](https://twitchapps.com/tmi/)
@@ -28,20 +35,20 @@ var channel = "channel_name"
 
 func _setup_twicil():
   twicil.connect_to_twitch_chat()
-  twicil.connect_to_channel(channel, cleint_id, oauth, nick)
+  twicil.connect_to_channel(channel, client_id, oauth, nick)
   
   # Connect signals for message and emotes retrieval
   twicil.connect("message_recieved", self, "_on_message_recieved")
   twicil.connect("emote_recieved", self, "_on_emote_recieved")
-  
-  # Enable loggin (disabled by default)
+
+  # Enable logging (disabled by default)
   twicil.set_logging(true)
   
   # Add custom commands to game bot
   twicil.commands.add("hi", self, "_command_say_hi", 0)
   twicil.commands.add("bye", self, "_command_say_bye_to", 1)
   twicil.commands.add("!w", self, "_command_whisper", 0)
-  
+
   # Add some aliases
   twicil.commands.add_aliases("hi", ["hello", "hi,", "hello,", "bye"])
   
@@ -85,7 +92,7 @@ func _on_emote_recieved(user_name: String, emote: Reference) -> void:
 |**connect_to_channel**|**channel** -- channel name to connect to; **client_id** -- your *client_id* obtained from Twitch Developer Dashboard; **password** -- your *oauth code* obtained from Twitch Developer Dashboard; **nickname** -- nickname of account your app will be authorized in chat; **realname** (optional) -- not quite sure if it's necessary, but can be the same as *nickname*;  | Joins specified chat using provided credentials|
 |**set_logging**|**state** -- boolean state| Enable/disable logging communication with server to stdout|
 |**connect_to_host**|**host** -- host IP or FDQN; **port** -- host port| Establishes connection to specified host:port|
-|**send_command**|**command** -- raw text which is send| Sends specified command/text directly to the server|
+|**send_command**|**command** -- raw text which is sent| Sends specified command/text directly to the server|
 |**send_message**|**text** -- message text| Sends a regular message to the chat|
 |**send_whisper**|**recipient** -- has to be a valid user name; **text** -- message text| Whispers (PM) a message to the specified user|
 |**request_emote_from**|**emotes** -- array with emote description dictionaries; **user_name** -- user name this emote is associated with (is needed to identify emote when it's recieved by `emote_recieved` signal consumers; **index** -- the index of emote in the emote array|Sends a request to one of emotes cache to retrieve an emote|
@@ -104,10 +111,7 @@ func _on_emote_recieved(user_name: String, emote: Reference) -> void:
 
 |Method|Params|Description|
 |-|-|-|
-|***commands.*** **add**|**chat_command** -- command text to react to; **target** -- target object on which method_name will be invoked; **method_name** -- method name to be invoked on the target object; **params_count**=1 -- parameters the command expects to be accepted as valid (optional param, default is 1); **variable_params_count**=false -- indicates if command can be called with any params count including none (optional param, default is false -- params count is mandatory). **NOTE:** Params are sent to callback as a list. First list member is ALWAYS sender nickname. See example ***godot-twicil-example.gd***)| Add command text **chat_command** to trigger **method_name** on **target** object and count command valid if **params_count** ammount of params is specified, or call it in any case if **variable_params_count** is set to *true*|
+|***commands.*** **add**|**chat_command** -- command text to react to; **target** -- target object on which method_name will be invoked; **method_name** -- method name to be invoked on the target object; **params_count**=1 -- parameters the command expects to be accepted as valid (optional param, default is 1); **variable_params_count**=false -- indicates if command can be called with any params count including none (optional param, default is false -- params count is mandatory). **NOTE:** Params are sent to callback as a list. First list member is ALWAYS sender nickname. See example ***godot-twicil-example.gd***)| Add command text **chat_command** to trigger **method_name** on **target** object and count command valid if **params_count** amount of params is specified, or call it in any case if **variable_params_count** is set to *true*|
 |***commands.*** **add_aliases**|**chat_command** -- command text alias(es) is/are set to; **aliases** --  a list of aliases to add to reaction of chat_command | Add aliases to chat_command to list of reactions. |
 |***commands.*** **remove**|**chat_command** -- command (or alias) text reaction is set to| Remove command (or alias) from list of reactions |
 
-### TODO:
-* ~~Add aliases for chat commands~~
-* Manage user states (~~connected~~/~~disconnected~~/banned users?)

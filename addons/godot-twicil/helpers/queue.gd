@@ -1,31 +1,32 @@
 extends Object
+class_name Queue
 
 var __queue = []
 var busy = false
 
-func append(element):
-	if busy:
-		return
+func append(element) -> void:
+    if busy:
+        return
 
-	busy = true
+    busy = true
 
-	__queue.append(element)
+    __queue.append(element)
 
-	busy = false
+    busy = false
 
 func pop_next():
-	if busy:
-		return
+    if busy:
+        return
 
-	busy = true
+    busy = true
 
-	var element = __queue[0]
+    var element = __queue[0]
 
-	__queue.pop_front()
+    __queue.pop_front()
 
-	busy = false
+    busy = false
 
-	return element
+    return element
 
-func is_empty():
-	return __queue.size() == 0
+func is_empty() -> bool:
+    return __queue.size() == 0

@@ -1,4 +1,8 @@
-var name
+class_name ChatUser
 
-func _init(name):
-	self.name = name
+
+var name: String
+
+
+func _init(name: String):
+    self.name = name

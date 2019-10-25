@@ -24,16 +24,23 @@ A basic explanation is available in this video (1.5x speed is recomended :D)
 Assuming you have added ***TwiCIL*** node to your scene:
 ```
 onready var twicil = get_node("TwiCIL")
+onready var sprite = get_node("Sprite")
+
 
 var nick = "MySuperGame"
 var client_id = "myClient1D"
 var oauth = "oauth:my0auTh"
 var channel = "channel_name"
 
+
 func _setup_twicil():
   twicil.connect_to_twitch_chat()
   twicil.connect_to_channel(channel, client_id, oauth, nick)
   
+  # Connect signals for message and emotes retrieval
+  twicil.connect("message_recieved", self, "_on_message_recieved")
+  twicil.connect("emote_recieved", self, "_on_emote_recieved")
+
   # Enable logging (disabled by default)
   twicil.set_logging(true)
   
@@ -67,6 +74,13 @@ func _command_whisper(params):
 func _ready():
   _setup_twicil()
 
+func _on_message_recieved(user_name: String, text: String, emotes: Array) -> void:
+    twicil.request_emote_from(emotes, user_name, 0)
+
+func _on_emote_recieved(user_name: String, emote: Reference) -> void:
+    if emote.texture:
+        sprite.texture = emote.texture
+
 ```
 
 ### API
@@ -81,16 +95,17 @@ func _ready():
 |**send_command**|**command** -- raw text which is sent| Sends specified command/text directly to the server|
 |**send_message**|**text** -- message text| Sends a regular message to the chat|
 |**send_whisper**|**recipient** -- has to be a valid user name; **text** -- message text| Whispers (PM) a message to the specified user|
+|**request_emote_from**|**emotes** -- array with emote description dictionaries; **user_name** -- user name this emote is associated with (is needed to identify emote when it's recieved by `emote_recieved` signal consumers; **index** -- the index of emote in the emote array|Sends a request to one of emotes cache to retrieve an emote|
 
 
 #### Signals
 |Signal|Params|Description|
 |-|-|-|
-|**message_recieved**|**sender** -- sender nickname; **text** -- message text| Emitted on new messages sent to chat|
-|**raw_response_recieved**|**response** -- raw response from Twitch IRC server| Emitted on any response from Twitch IRC server received|
+|**message_recieved**|**sender** -- sender nickname; **text** -- message text; **emotes** -- array with emote description dictionaries for every emote parsed from the message (Twitch, BetterTTV, FFZ)| Emitted on new messages send to chat|
+|**raw_response_recieved**|**response** -- raw response from Twitch IRC server| Emitted on any response from Twitch IRC server recieved|
 |**user_appeared**|**user** -- user nickname|Emitted on user join notification received from server. NOTE: this has a server delay of several minutes|
 |**user_disappeared**|**user** -- user nickname|Emitted on user part notification received from server. NOTE: this has a server delay of several minutes|
-
+|**emote_recieved**|**user** -- user nickname the emote is associated with (see `request_emote_from`); **emote_reference** -- an emote reference (one of TwitchEmote, BTTVEmote, FFZEmote) has a `texture` property of type `ImageTexture`|Emitted on user emote retrieval of an emote for a user requested with `request_emote_from` method|
 
 #### Manage interactive commands
 

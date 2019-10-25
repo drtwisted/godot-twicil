@@ -1,6 +1,9 @@
-var name
-var text
+class_name IrcChatMessage
 
-func _init(name, text):
-	self.name = name
-	self.text = text
+
+var name: String
+var text: String
+
+func _init(name: String, text: String):
+    self.name = name
+    self.text = text

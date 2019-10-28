@@ -2,6 +2,8 @@
 <img src="./godot-twicil-icon.png" height=100px/>
 
 
+## NOTE: ATM `master` branch contains TwiCIL v1.3.0-legacy (for Godot 2.x), latest changes brouhgt with v2.0.0 are at [godot3.1](https://github.com/drtwisted/godot-twicil/tree/godot3.1) branch. In the future thing's will switch around.
+
 ### Description
 An abstraction layer for Godot Engine to enable interaction with twitch chat.
 

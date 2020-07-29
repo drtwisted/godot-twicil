@@ -4,7 +4,7 @@ class_name TwiCIL
 signal raw_response_recieved(response)
 signal user_appeared(user)
 signal user_disappeared(user)
-signal message_recieved(sender, text, emotes)
+signal message_recieved(sender, text, emotes, attr)
 
 signal emote_recieved(user, emote_reference)
 
@@ -190,6 +190,17 @@ func __parse(string: String) -> TwitchIrcServerMessage:
 
     return TwitchIrcServerMessage.new(twitch_prefix, prefix, command, args)
 
+func __parse_attrs(message_prefix):
+    var attrs = {}
+    var raw_attrs = message_prefix.split(";")
+    for raw_attr in raw_attrs:
+        var key_value = raw_attr.split("=")
+        var key = key_value[0]
+        var value = null
+        if key_value.size() > 1:
+            value = key_value[1]
+        attrs[key] = value
+    return attrs
 
 # Hooks
 func _ready():
@@ -211,17 +222,20 @@ func _on_response_recieved(response):
 
         # Message received
         elif single_response.command == irc_commands[IRCCommands.PRIVMSG]:
+            var attrs = __parse_attrs(single_response.message_prefix)
             var twitch_message: TwitchMessage = TwitchMessage.new(
                 single_response,
                 bttv_emotes_cache.available_emotes,
-                ffz_emotes_cache.available_emotes
+                ffz_emotes_cache.available_emotes,
+                attrs
             )
 
             emit_signal(
                 "message_recieved",
                 twitch_message.chat_message.name,
                 twitch_message.chat_message.text,
-                twitch_message.emotes
+                twitch_message.emotes,
+                twitch_message.attrs
             )
 
         elif single_response.command == irc_commands[IRCCommands.JOIN]:

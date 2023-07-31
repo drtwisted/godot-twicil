@@ -43,7 +43,7 @@ func remove(chat_command: String) -> void:
         interactive_commands.erase(chat_command)
 
 # Events
-func _on_message_recieved(sender: String, text: String, emotes: Array) -> void:
+func _on_message_recieved(sender: String, text: String, emotes: Array, attrs: Dictionary) -> void:
     var input_cmd: Array = text.split(' ')
 
     for cmd in interactive_commands:
@@ -64,5 +64,7 @@ func _on_message_recieved(sender: String, text: String, emotes: Array) -> void:
             if params_count >= 1:
                 for i in range(params_count):
                     params.append(input_cmd[i + 1])
+
+            params.append(attrs)
 
             interactive_commands[cmd].call_command(params)

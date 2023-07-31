@@ -12,17 +12,20 @@ var chat_message: IrcChatMessage
 #[
 #    {
 #        'code': 'emote_code',
-#        'id': 'emote_id'
-#        'type': 0    # EmoteType enum
+#        'id': 'emote_id',
+#        'type': 0    # EmoteType enum,
+#         'attrs': {'id':'123456-fake-id', 'subscriber':'1'}
 #    },
 #    ...
 #]
 #
 var emotes: Array
+var attrs = {}
 
 
-func _init(server_irc_message: TwitchIrcServerMessage, bttv_emotes: Dictionary, ffz_emotes):
+func _init(server_irc_message: TwitchIrcServerMessage, bttv_emotes: Dictionary, ffz_emotes, message_attrs: Dictionary):
     chat_message = MessageWrapper.wrap(server_irc_message)
+    attrs = message_attrs
 
     emotes.clear()
 
